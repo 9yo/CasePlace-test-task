@@ -31,7 +31,7 @@ def save_videos_to_db(pl_id, videos):
     pl_videos.insert_many(videos)
     connection.close()
 
-def check_for_pl(pl_id):
+def setup_db(pl_id):
     connection: MongoClient = MongoClient('localhost', 27017, connect=False)
     pl_videos = connection[pl_id]['videos']
 
@@ -44,7 +44,7 @@ def check_for_pl(pl_id):
 
 def main():
     pl_id: str = 'PLV6PNz895rnPtiojPsrWAHeUZWMCqPMRT'
-    check_for_pl(pl_id)
+    setup_db(pl_id)
     vids = get_all_videos_from_playlist(pl_id)
     print('{} videos loaded!'.format(len(vids)))
     save_videos_to_db(pl_id, vids)
